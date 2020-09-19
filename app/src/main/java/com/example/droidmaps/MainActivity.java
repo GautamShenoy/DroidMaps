@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                        .withListener(new PermissionListener() {
                            @Override
                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                                startActivity(new Intent(MainActivity.this, LocationAdders.class));
+                                startActivity(new Intent(MainActivity.this, MapActivity.class));
                                 finish();
                            }
 
