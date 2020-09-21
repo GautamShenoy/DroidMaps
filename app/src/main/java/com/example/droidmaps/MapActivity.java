@@ -1,6 +1,7 @@
 package com.example.droidmaps;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Point;
@@ -100,29 +101,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MapActivity.this);
 
-        Places.initialize(getApplicationContext(), "AIzaSyAlRbOFWuRiBrEn-ejd8vbQxo7ffuwlTeY");
+//        Places.initialize(getApplicationContext(), "AIzaSyAlRbOFWuRiBrEn-ejd8vbQxo7ffuwlTeY");
+//
+//        placesClient = Places.createClient(this);
 
-        placesClient = Places.createClient(this);
+//        final AutocompleteSupportFragment autocompleteSupportFragment =
+//                (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+//
+//        autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME));
+//        autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//            @Override
+//            public void onPlaceSelected(@NonNull Place place) {
+//                final LatLng latLng = place.getLatLng();
+//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latLng.latitude, latLng.longitude), DEFAULT_ZOOM));
+//                latitude = latLng.latitude;
+//                longitude = latLng.longitude;
+//            }
 
-        final AutocompleteSupportFragment autocompleteSupportFragment =
-                (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-
-        autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME));
-        autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(@NonNull Place place) {
-                final LatLng latLng = place.getLatLng();
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latLng.latitude, latLng.longitude), DEFAULT_ZOOM));
-                latitude = latLng.latitude;
-                longitude = latLng.longitude;
-            }
-
-            @Override
-            public void onError(@NonNull Status status) {
-
-            }
-        });
-
+//            @Override
+//            public void onError(@NonNull Status status) {
+//
+//            }
+//        });
+//
     }
 
     @SuppressLint("MissingPermission")
@@ -232,6 +233,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void submitLocBtn(View view) {
         Toast.makeText(MapActivity.this, "Button Clicked", Toast.LENGTH_SHORT).show();
+//        Log.i("co-ordinates", String.valueOf(latitude));
+//        Log.i("co-ordinates", String.valueOf(longitude));
+        Intent new_intent=new Intent();
+        new_intent.putExtra("co-ordinates",latitude+" "+longitude);
+//        new_intent.putExtra("longitude",longitude);
+        setResult(Activity.RESULT_OK,new_intent);
+        finish();
     }
 
     @Override

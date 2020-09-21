@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <TextView
+        android:id="@+id/trialtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="enter"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <EditText
+        android:id="@+id/text_name"
+        android:layout_width="229dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="68dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="Name of the tree"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/text_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Height(approx)"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/text_name"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="@+id/text_name"
+        app:layout_constraintTop_toBottomOf="@+id/text_name"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/text_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Age(approx)"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/text_height"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/text_height"
+        app:layout_constraintTop_toBottomOf="@+id/text_height"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/text_colorOfLeaf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Color of leaves"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/text_age"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/text_age"
+        app:layout_constraintTop_toBottomOf="@+id/text_age" />
+
+    <EditText
+        android:id="@+id/text_seasonOfBearing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Season of bearing fruits"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/text_colorOfLeaf"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/text_colorOfLeaf"
+        app:layout_constraintTop_toBottomOf="@+id/text_colorOfLeaf"
+        android:autofillHints="" />
+
+    <ImageView
+        android:id="@+id/img_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:clickable="true"
+        android:foregroundGravity=""
+        android:onClick="goToMapActivityForLocation"
+        android:src="@drawable/ic_icon_foreground"
+        app:layout_constraintEnd_toEndOf="@+id/text_seasonOfBearing"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="@+id/text_seasonOfBearing"
+        app:layout_constraintTop_toBottomOf="@+id/text_seasonOfBearing" />
+
+    <TextView
+        android:id="@+id/text_locationAccessMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Pls click the pin to view your cureent location"
+        app:layout_constraintEnd_toEndOf="@+id/img_location"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="@+id/img_location"
+        app:layout_constraintTop_toBottomOf="@+id/img_location" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:onClick="addDataToDatabase"
+        android:text="Add to dataset"
+        android:textAlignment="center"
+        app:layout_constraintCircleRadius="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/text_locationAccessMessage"
+        app:layout_constraintHorizontal_bias="0.618"
+        app:layout_constraintStart_toStartOf="@+id/text_locationAccessMessage"
+        app:layout_constraintTop_toBottomOf="@+id/img_location" />
+</androidx.constraintlayout.widget.ConstraintLayout>

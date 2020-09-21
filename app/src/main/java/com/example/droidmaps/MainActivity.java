@@ -25,13 +25,17 @@ import com.karumi.dexter.listener.single.PermissionListener;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnGrant;
+    public static final int REQUEST_CODE=1010;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED) {
-            startActivity(new Intent(MainActivity.this, MapActivity.class));
+            startActivity(new Intent(MainActivity.this, FormActivity.class));
+//            startActivity(new Intent(MainActivity.this, MapActivity.class));
+//            startActivity(new Intent(MainActivity.this, FormActivity.class));
             finish();
             return;
         }
@@ -45,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
                        .withListener(new PermissionListener() {
                            @Override
                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                                startActivity(new Intent(MainActivity.this, MapActivity.class));
-                                finish();
+                                startActivity(new Intent(MainActivity.this, FormActivity.class));
+//                               startActivity(new Intent(MainActivity.this, FormActivity.class));
+                               finish();
                            }
 
                            @Override
