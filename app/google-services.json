@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "830995448109",
+    "firebase_url": "https://droidmaps-8ac8b.firebaseio.com",
+    "project_id": "droidmaps-8ac8b",
+    "storage_bucket": "droidmaps-8ac8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830995448109:android:50bcb23e69091c506a93a4",
+        "android_client_info": {
+          "package_name": "com.example.droidmaps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830995448109-qfcjf3a4qsep651p536p75mfisa14h0b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.droidmaps",
+            "certificate_hash": "0e3b29c4da223489ac7af40fb89892be44adc4d0"
+          }
+        },
+        {
+          "client_id": "830995448109-1aujsdfngca9leqi32lsdp5i7core3ej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVfb-xTfs4n_z7m7sPO7Ia0OTQTPpTgmo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830995448109-1aujsdfngca9leqi32lsdp5i7core3ej.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

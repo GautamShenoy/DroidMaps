@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                        .withListener(new PermissionListener() {
                            @Override
                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                                startActivity(new Intent(MainActivity.this, FormActivity.class));
+                                startActivity(new Intent(MainActivity.this, DashboardActivity.class));
 //                               startActivity(new Intent(MainActivity.this, FormActivity.class));
                                finish();
                            }
@@ -84,5 +85,10 @@ public class MainActivity extends AppCompatActivity {
                        .check();
             }
         });
+    }
+//to login out the user
+    public void logout(View view) {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
     }
 }
