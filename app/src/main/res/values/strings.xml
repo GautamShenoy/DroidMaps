@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Firebase</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_load">Load</string>
+</resources>
