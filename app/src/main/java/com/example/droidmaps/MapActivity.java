@@ -50,6 +50,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 import androidx.annotation.NonNull;
@@ -75,9 +76,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Button mLogOut;
     private FusedLocationProviderClient fusedLocationProviderClient; //responsible for obtaining current location of the device
     private Location mLastLocation;
     private LocationCallback locationCallback; //updating users request if last known is null
@@ -88,7 +90,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private double latitude;
     private double longitude;
 
-    private PlacesClient placesClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,29 +102,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MapActivity.this);
 
-//        Places.initialize(getApplicationContext(), "AIzaSyAlRbOFWuRiBrEn-ejd8vbQxo7ffuwlTeY");
-//
-//        placesClient = Places.createClient(this);
+        mLogOut = findViewById(R.id.btn_logout);
 
-//        final AutocompleteSupportFragment autocompleteSupportFragment =
-//                (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-//
-//        autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME));
-//        autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-//            @Override
-//            public void onPlaceSelected(@NonNull Place place) {
-//                final LatLng latLng = place.getLatLng();
-//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latLng.latitude, latLng.longitude), DEFAULT_ZOOM));
-//                latitude = latLng.latitude;
-//                longitude = latLng.longitude;
-//            }
-
-//            @Override
-//            public void onError(@NonNull Status status) {
-//
-//            }
-//        });
-//
+        mLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+            }
+        });
     }
 
     @SuppressLint("MissingPermission")
@@ -233,17 +221,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void submitLocBtn(View view) {
         Toast.makeText(MapActivity.this, "Button Clicked", Toast.LENGTH_SHORT).show();
-//        Log.i("co-ordinates", String.valueOf(latitude));
-//        Log.i("co-ordinates", String.valueOf(longitude));
-        Intent new_intent=new Intent();
-        new_intent.putExtra("co-ordinates",latitude+" "+longitude);
-//        new_intent.putExtra("longitude",longitude);
-        setResult(Activity.RESULT_OK,new_intent);
+        Intent intent = new Intent(MapActivity.this, FormActivity.class);
+        intent.putExtra("Latitude", latitude);
+        intent.putExtra("Longitude", longitude);
+        startActivity(intent);
         finish();
     }
 
-    @Override
-    public void onMapLongClick(LatLng latLng) {
-        Log.d("On Long Click", latLng.toString());
-    }
 }

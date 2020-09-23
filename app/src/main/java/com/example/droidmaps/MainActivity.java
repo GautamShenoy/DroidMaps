@@ -34,9 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED) {
-            startActivity(new Intent(MainActivity.this, FormActivity.class));
-//            startActivity(new Intent(MainActivity.this, MapActivity.class));
-//            startActivity(new Intent(MainActivity.this, FormActivity.class));
+            startActivity(new Intent(MainActivity.this, MapActivity.class));
             finish();
             return;
         }
@@ -50,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
                        .withListener(new PermissionListener() {
                            @Override
                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                                startActivity(new Intent(MainActivity.this, DashboardActivity.class));
-//                               startActivity(new Intent(MainActivity.this, FormActivity.class));
+                                startActivity(new Intent(MainActivity.this, MapActivity.class));
                                finish();
                            }
 
@@ -85,10 +82,5 @@ public class MainActivity extends AppCompatActivity {
                        .check();
             }
         });
-    }
-//to login out the user
-    public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
     }
 }

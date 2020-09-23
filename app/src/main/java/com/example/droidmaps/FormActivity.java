@@ -9,40 +9,41 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class FormActivity extends AppCompatActivity {
-    public static final int REQUEST_CODE=1010;
+
+    private EditText mName, mHeight, mAge, mColor, mSeason;
+    private Button submit_btn;
+    private double mLatitude, mLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
-    }
 
-    public void goToMapActivityForLocation(View view) {
-        Intent intent=new Intent(this, MapActivity.class);
-        startActivityForResult(intent,REQUEST_CODE);
-    }
+        Intent intent = getIntent();
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case REQUEST_CODE:
-                if(resultCode== Activity.RESULT_OK){
-                    String co_ordinates=data.getStringExtra("co-ordinates");
-                    String arr[]=co_ordinates.split(" ");
-                    String latitude=arr[0];
-                    String longitude=arr[1];
-                }
-                else{
-                    Log.i("Error","Activity canceled");
-                }
-        }
-    }
+        mLatitude = intent.getDoubleExtra("Latitude", 0);
+        mLongitude = intent.getDoubleExtra("Longitude",0);
+        mName = findViewById(R.id.text_name);
+        mAge = findViewById(R.id.text_age);
+        mHeight = findViewById(R.id.text_height);
+        mColor = findViewById(R.id.text_colorOfLeaf);
+        mSeason = findViewById(R.id.text_seasonOfBearing);
+        submit_btn = findViewById(R.id.btn_submit);
 
-    public void addDataToDatabase(View view) {
-        //code of adding to the database to be added here
+
+        submit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //your code for implementing fire store and remove toast
+                Toast.makeText(FormActivity.this, "Data Added to our Server", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(FormActivity.this, MapActivity.class));
+            }
+        });
 
     }
 
