@@ -102,27 +102,27 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(RegisterActivity.this, "User created successfully", Toast.LENGTH_SHORT).show();
                             //retrieving the id from the firebase auth
-                            userId = fAuth.getCurrentUser().getUid();
+//                            userId = fAuth.getCurrentUser().getUid();
                             //storing user details in the firestore
                             //to refer to the documents in the firestore
-                            DocumentReference documentReference = fstore.collection("users").document(userId);
-                            //using hashmap to store data
-                            Map<String, Object> user = new HashMap<>();
-                            user.put("Name", username);
-                            user.put("Email", emailid);
+//                            DocumentReference documentReference = fstore.collection("users").document(userId);
+//                            using hashmap to store data
+//                            Map<String, Object> user = new HashMap<>();
+//                            user.put("Name", username);
+//                            user.put("Email", emailid);
                             //user.put("APIkey", apikeystored);
                             //inserting in the cloud database
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(RegisterActivity.this, "User profile is created and added to database " + userId, Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(RegisterActivity.this, "An error occured.Please try again in a while", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+//                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Toast.makeText(RegisterActivity.this, "User profile is created and added to database " + userId, Toast.LENGTH_SHORT).show();
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Toast.makeText(RegisterActivity.this, "An error occured.Please try again in a while", Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
                         //if error then display the error
