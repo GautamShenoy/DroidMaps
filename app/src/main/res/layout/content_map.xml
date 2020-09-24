@@ -23,33 +23,53 @@
         android:src="@drawable/ic_pin"
         android:translationY="-18dp" />
 
-
-    <Button
-        android:id="@+id/btn_add_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorPrimary"
-        android:onClick="submitLocBtn"
-        android:text="@string/add_location_btn_value"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
     <Button
         android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_weight="1"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="673dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="bottom"
+        android:layout_marginRight="20dp"
         android:background="@color/colorPrimary"
         android:text="LogOut"
-        android:textColor="@color/login_forms_details" />
+        android:textColor="@color/app_logo_background" />
 
+        <Button
+            android:id="@+id/btn_add_location"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            android:onClick="submitLocBtn"
+            android:text="@string/add_location_btn_value"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/app_logo_background"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </RelativeLayout>
+<!--    android:layout_alignParentEnd="true"-->
+<!--    android:layout_alignParentBottom="true"-->
+<!--    android:layout_marginEnd="11dp"-->
+<!--    android:layout_marginBottom="673dp"-->
+<!-- -->
+
+<!--    android:layout_marginStart="16dp"-->
+<!--    android:layout_marginTop="16dp"-->
+<!--    android:layout_marginEnd="16dp"-->
+<!--    android:layout_marginBottom="16dp"-->
