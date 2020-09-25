@@ -1,10 +1,8 @@
 package com.example.droidmaps;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
@@ -25,12 +23,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FormActivity extends AppCompatActivity {
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private  EditText mName, mHeight, mAge, mColor, mSeason;
+    private EditText mName, mHeight, mAge, mColor, mSeason;
     private Button submit_btn;
     private double mLatitude, mLongitude;
-    private final String KEY_geoJson="geoJSON";
     CollectionReference reference = db.collection("DATA");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,7 @@ public class FormActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         mLatitude = intent.getDoubleExtra("Latitude", 0);
-        mLongitude = intent.getDoubleExtra("Longitude",0);
+        mLongitude = intent.getDoubleExtra("Longitude", 0);
         mName = findViewById(R.id.text_name);
         mAge = findViewById(R.id.text_age);
         mHeight = findViewById(R.id.text_height);
@@ -60,11 +59,11 @@ public class FormActivity extends AppCompatActivity {
 
                 JSONObject obj = new JSONObject();
                 try {
-                    obj.put("Name",name);
-                    obj.put("Age",age);
-                    obj.put("Height",height);
-                    obj.put("Color",color);
-                    obj.put("Season",season);
+                    obj.put("Name", name);
+                    obj.put("Age", age);
+                    obj.put("Height", height);
+                    obj.put("Color", color);
+                    obj.put("Season", season);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -78,14 +77,11 @@ public class FormActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
                 Log.d("GIS", geoJSON.toString());
-                Toast.makeText(FormActivity.this, " "+geoJSON, Toast.LENGTH_SHORT).show();
-//                Toast.makeText(MainActivity.this, " "+geoJSON, Toast.LENGTH_SHORT).show();
-                //your code for implementing fire store and remove toast
-                //Toast.makeText(FormActivity.this, "Data Added to our Server", Toast.LENGTH_SHORT).show();
-                String a = geoJSON.toString().replace("{","{");
-                String b= a.toString().replace("}","}");
-                Toast.makeText(FormActivity.this, ""+b, Toast.LENGTH_SHORT).show();
+
+                String a = geoJSON.toString().replace("{", "{");
+                String b = a.toString().replace("}", "}");
                 Deets deets = new Deets(b);
                 reference.add(deets)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

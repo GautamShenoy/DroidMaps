@@ -80,9 +80,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private Button mLogOut;
-    private FusedLocationProviderClient fusedLocationProviderClient; //responsible for obtaining current location of the device
+    private FusedLocationProviderClient fusedLocationProviderClient; /* responsible for obtaining current location of the device */
     private Location mLastLocation;
-    private LocationCallback locationCallback; //updating users request if last known is null
+    private LocationCallback locationCallback;   /* updating users request if last known is null */
 
 
     private View mapView;
@@ -116,19 +116,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @SuppressLint("MissingPermission")
     @Override
-    public void onMapReady(GoogleMap googleMap) { //00:55 minutes
+    public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-
-        //skeptical
-//        if (mapView != null && mapView.findViewById(Integer.parseInt("1")) != null) {
-//            View LocationBtn = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
-//            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) LocationBtn.getLayoutParams();
-//            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-//            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-//            layoutParams.setMargins(0,0,40,180);
-//        }
 
         //check if gps enabled ... if not req user to enable it
         LocationRequest locationRequest = LocationRequest.create();
@@ -139,7 +130,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
 
         SettingsClient settingsClient = LocationServices.getSettingsClient(MapActivity.this);
-        Task <LocationSettingsResponse> task = settingsClient.checkLocationSettings(builder.build());
+        Task<LocationSettingsResponse> task = settingsClient.checkLocationSettings(builder.build());
 
         task.addOnSuccessListener(MapActivity.this, new OnSuccessListener<LocationSettingsResponse>() {
             @Override
@@ -152,7 +143,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         task.addOnFailureListener(MapActivity.this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                if(e instanceof ResolvableApiException) {
+                if (e instanceof ResolvableApiException) {
                     ResolvableApiException resolve = (ResolvableApiException) e;
                     try {
                         resolve.startResolutionForResult(MapActivity.this, 16);
@@ -162,8 +153,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
-
-        //mMap.setOnMapLongClickListener(this);
     }
 
     @Override
@@ -179,48 +168,46 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @SuppressLint("MissingPermission")
-    private void getDeviceLocation () {
+    private void getDeviceLocation() {
         fusedLocationProviderClient.getLastLocation()
                 .addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
-                if (task.isSuccessful()) {
-                    mLastLocation = task.getResult();
-                    if (mLastLocation != null) {
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()),DEFAULT_ZOOM));
-                        latitude = mLastLocation.getLatitude();
-                        longitude = mLastLocation.getLongitude();
-                        Log.d("Location", "Latitude : " + latitude + " Longitude : " + longitude);
-                    }
-                    else {
-                        final LocationRequest locationRequest = LocationRequest.create();
-                        locationRequest.setInterval(10000);
-                        locationRequest.setFastestInterval(5000);
-                        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                        locationCallback = new LocationCallback() {
-                            @Override
-                            public void onLocationResult(LocationResult locationResult) {
-                                super.onLocationResult(locationResult);
-                                if (locationResult == null)
-                                    return;
-                                mLastLocation = locationResult.getLastLocation();
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            mLastLocation = task.getResult();
+                            if (mLastLocation != null) {
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), DEFAULT_ZOOM));
                                 latitude = mLastLocation.getLatitude();
                                 longitude = mLastLocation.getLongitude();
-                                fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                                Log.d("Location", "Latitude : " + latitude + " Longitude : " + longitude);
+                            } else {
+                                final LocationRequest locationRequest = LocationRequest.create();
+                                locationRequest.setInterval(10000);
+                                locationRequest.setFastestInterval(5000);
+                                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                                locationCallback = new LocationCallback() {
+                                    @Override
+                                    public void onLocationResult(LocationResult locationResult) {
+                                        super.onLocationResult(locationResult);
+                                        if (locationResult == null)
+                                            return;
+                                        mLastLocation = locationResult.getLastLocation();
+                                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), DEFAULT_ZOOM));
+                                        latitude = mLastLocation.getLatitude();
+                                        longitude = mLastLocation.getLongitude();
+                                        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                                    }
+                                };
+                                fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
                             }
-                        };
-                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+                        } else {
+                            Toast.makeText(MapActivity.this, "Unable to get last location", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                } else {
-                    Toast.makeText(MapActivity.this, "Unable to get last location", Toast.LENGTH_SHORT).show() ;
-                }
-            }
-        });
+                });
     }
 
     public void submitLocBtn(View view) {
-        Toast.makeText(MapActivity.this, "Button Clicked", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MapActivity.this, FormActivity.class);
         intent.putExtra("Latitude", latitude);
         intent.putExtra("Longitude", longitude);
