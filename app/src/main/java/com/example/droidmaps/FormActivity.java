@@ -24,12 +24,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class FormActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private  EditText mName, mHeight, mAge, mColor, mSeason;
     private Button submit_btn;
     private double mLatitude, mLongitude;
     private final String KEY_geoJson="geoJSON";
+    private static final String FILE_NAME="droidmaps_";
+
     CollectionReference reference = db.collection("DATA");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,19 +88,55 @@ public class FormActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Log.d("GIS", geoJSON.toString());
-                Toast.makeText(FormActivity.this, " "+geoJSON, Toast.LENGTH_SHORT).show();
-//                Toast.makeText(MainActivity.this, " "+geoJSON, Toast.LENGTH_SHORT).show();
                 //your code for implementing fire store and remove toast
-                //Toast.makeText(FormActivity.this, "Data Added to our Server", Toast.LENGTH_SHORT).show();
-                String a = geoJSON.toString().replace("{","{");
-                String b= a.toString().replace("}","}");
-                Toast.makeText(FormActivity.this, ""+b, Toast.LENGTH_SHORT).show();
-                Deets deets = new Deets(b);
+                final String a = geoJSON.toString().replace("{","{").replace("}","}");
+//                Toast.makeText(FormActivity.this, ""+a, Toast.LENGTH_SHORT).show();
+                final Deets deets = new Deets(a);
                 reference.add(deets)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(FormActivity.this, "Data successfully added to firestore!!!", Toast.LENGTH_SHORT).show();
+                                FileOutputStream fos=null;
+                                try {
+                                    fos = openFileOutput(FILE_NAME+documentReference.getId()+".txt", MODE_PRIVATE);
+                                    fos.write(a.getBytes());
+                                    Toast.makeText(FormActivity.this, "Saved to "+getFilesDir()+"/"+FILE_NAME+documentReference.getId()+".txt", Toast.LENGTH_LONG).show();
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }finally {
+                                    if(fos!=null){
+                                        try {
+                                            fos.close();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+//                                FileInputStream fis=null;
+//                                try {
+//                                    fis=openFileInput(FILE_NAME+documentReference.getId()+".txt");
+//                                    InputStreamReader isr=new InputStreamReader(fis);
+//                                    BufferedReader br=new BufferedReader(isr);
+//                                    StringBuilder sb=new StringBuilder();
+//                                    String text;
+//                                    while ((text=br.readLine())!=null){
+//                                        sb.append(text).append("\n");
+//                                    }
+//                                } catch (FileNotFoundException e) {
+//                                    e.printStackTrace();
+//                                } catch (IOException e) {
+//                                    e.printStackTrace();
+//                                } finally {
+//                                    if(fis!=null){
+//                                        try {
+//                                            fis.close();
+//                                        } catch (IOException e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                    }
+//                                }
                             }
                         });
                 startActivity(new Intent(FormActivity.this, MapActivity.class));

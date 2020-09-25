@@ -220,7 +220,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public void submitLocBtn(View view) {
-        Toast.makeText(MapActivity.this, "Button Clicked", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(MapActivity.this, "Button Clicked", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MapActivity.this, FormActivity.class);
         intent.putExtra("Latitude", latitude);
         intent.putExtra("Longitude", longitude);
