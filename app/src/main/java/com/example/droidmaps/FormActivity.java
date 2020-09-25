@@ -1,45 +1,35 @@
 package com.example.droidmaps;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.cocoahero.android.geojson.Feature;
 import com.cocoahero.android.geojson.Point;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class FormActivity extends AppCompatActivity {
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private  EditText mName, mHeight, mAge, mColor, mSeason;
+    private EditText mName, mHeight, mAge, mColor, mSeason;
     private Button submit_btn;
     private double mLatitude, mLongitude;
     private final String KEY_geoJson="geoJSON";
     private static final String FILE_NAME="droidmaps_";
-
     CollectionReference reference = db.collection("DATA");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +38,7 @@ public class FormActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         mLatitude = intent.getDoubleExtra("Latitude", 0);
-        mLongitude = intent.getDoubleExtra("Longitude",0);
+        mLongitude = intent.getDoubleExtra("Longitude", 0);
         mName = findViewById(R.id.text_name);
         mAge = findViewById(R.id.text_age);
         mHeight = findViewById(R.id.text_height);
@@ -69,11 +59,11 @@ public class FormActivity extends AppCompatActivity {
 
                 JSONObject obj = new JSONObject();
                 try {
-                    obj.put("Name",name);
-                    obj.put("Age",age);
-                    obj.put("Height",height);
-                    obj.put("Color",color);
-                    obj.put("Season",season);
+                    obj.put("Name", name);
+                    obj.put("Age", age);
+                    obj.put("Height", height);
+                    obj.put("Color", color);
+                    obj.put("Season", season);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -87,10 +77,8 @@ public class FormActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d("GIS", geoJSON.toString());
-                //your code for implementing fire store and remove toast
+
                 final String a = geoJSON.toString().replace("{","{").replace("}","}");
-//                Toast.makeText(FormActivity.this, ""+a, Toast.LENGTH_SHORT).show();
                 final Deets deets = new Deets(a);
                 reference.add(deets)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

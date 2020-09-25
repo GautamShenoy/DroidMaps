@@ -49,25 +49,28 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailid=email.getText().toString();
-                String passwordstring=password.getText().toString();
+                String emailId=email.getText().toString();
+                String passwordString=password.getText().toString();
+
                 //checking if the email field is not empty
-                if(TextUtils.isEmpty(emailid)){
+                if(TextUtils.isEmpty(emailId)){
                     email.setError("Email is a required field");
                     return;
                 }
+
                 //checking if the password field is not empty
-                if(TextUtils.isEmpty(passwordstring)){
+                if(TextUtils.isEmpty(passwordString)){
                     password.setError("Password is required");
                     return;
                 }
+
                 //checking the length of the password is a minimum of 6 chars
-                if(passwordstring.length()<6){
+                if(passwordString.length()<6){
                     password.setError("Password should be minimum of 6 characters");
                     return;
                 }
 
-                fAuth.signInWithEmailAndPassword(emailid,passwordstring).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.signInWithEmailAndPassword(emailId,passwordString).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
@@ -137,17 +140,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void fireBaseAuthentication (GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        fAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    //remove this toast afterwards
-                    Toast.makeText(LoginActivity.this, "Firebase SignIn Successful", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, "Firebase SignIn Unsuccessful", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        fAuth.signInWithCredential(credential);
     }
 }

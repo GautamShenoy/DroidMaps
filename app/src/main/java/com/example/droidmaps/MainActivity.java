@@ -26,34 +26,34 @@ import com.karumi.dexter.listener.single.PermissionListener;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnGrant;
-    public static final int REQUEST_CODE=1010;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             startActivity(new Intent(MainActivity.this, MapActivity.class));
             finish();
             return;
         }
+
         btnGrant = findViewById(R.id.btn_grant_permission);
-        btnGrant.setOnClickListener(new View.OnClickListener(){
+        btnGrant.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-               Dexter.withActivity(MainActivity.this)
-                       .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                       .withListener(new PermissionListener() {
-                           @Override
-                           public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                Dexter.withActivity(MainActivity.this)
+                        .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                        .withListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                                 startActivity(new Intent(MainActivity.this, MapActivity.class));
-                               finish();
-                           }
+                                finish();
+                            }
 
-                           @Override
-                           public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
                                 if (permissionDeniedResponse.isPermanentlyDenied()) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                                     builder.setTitle("Permission Denied")
@@ -68,18 +68,17 @@ public class MainActivity extends AppCompatActivity {
                                                 }
                                             })
                                             .show();
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(MainActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                                 }
-                           }
+                            }
 
-                           @Override
-                           public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                               permissionToken.continuePermissionRequest();
-                           }
-                       })
-                       .check();
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                                permissionToken.continuePermissionRequest();
+                            }
+                        })
+                        .check();
             }
         });
     }
