@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,7 +57,16 @@ public class FormActivity extends AppCompatActivity {
                 final Editable height = mHeight.getText();
                 final Editable color = mColor.getText();
                 final Editable season = mSeason.getText();
-
+//                validation to prevent empty string in name field
+                if (TextUtils.isEmpty(name)) {
+                    mName.setError("name is a required field");
+                    return;
+                }
+//                validation  to prevent empty string in color field
+                if (TextUtils.isEmpty(color)) {
+                    mColor.setError("Email is a required field");
+                    return;
+                }
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("Name", name);
@@ -84,6 +94,7 @@ public class FormActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
+//                                to store the file in local storage
                                 FileOutputStream fos=null;
                                 try {
                                     fos = openFileOutput(FILE_NAME+documentReference.getId()+".txt", MODE_PRIVATE);
@@ -102,6 +113,7 @@ public class FormActivity extends AppCompatActivity {
                                         }
                                     }
                                 }
+//                                to display the saved text file
 //                                FileInputStream fis=null;
 //                                try {
 //                                    fis=openFileInput(FILE_NAME+documentReference.getId()+".txt");

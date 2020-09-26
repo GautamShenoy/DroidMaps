@@ -110,6 +110,8 @@
         android:text="Sign in with Google"
         android:textColor="@color/login_forms_details"
         android:textStyle="bold"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         app:layout_constraintBottom_toTopOf="@id/footer_line"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintHorizontal_bias="0.475"

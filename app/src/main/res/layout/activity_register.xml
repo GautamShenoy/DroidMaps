@@ -138,6 +138,8 @@
         android:background="@drawable/btn_background"
         android:drawableStart="@drawable/google_icon"
         android:padding="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="Sign in with Google"
         android:textColor="@color/login_forms_details"
         android:textStyle="bold"
