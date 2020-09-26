@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DroidMaps</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_action_requester">ActionRequesterActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -9,8 +10,10 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="add_location_btn_value">Add This Location to our server</string>
+    <string name="add_location_btn_value">Proceed</string>
     <string name="add_a_point">Add a Point</string>
     <string name="submit_to_server">Submit to Server</string>
     <string name="locations_added_label">Locations Added</string>
+    <string name="title_activity_form">FormActivity</string>
+    <string name="title_activity_main2">MainActivity</string>
 </resources>
