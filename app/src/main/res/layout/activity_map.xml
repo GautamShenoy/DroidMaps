@@ -11,6 +11,4 @@
     <include layout="@layout/content_map" />
 
 
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
